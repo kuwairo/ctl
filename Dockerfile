@@ -19,7 +19,9 @@ RUN temp="$(mktemp -d)" && \
     wget https://github.com/siderolabs/talos/releases/download/${TALOSCTL_VERSION}/talosctl-linux-amd64 && \
     mv talosctl-linux-amd64 ${BIN_DIR}/talosctl && \
     cd - && \
-    rm -rf "$temp"
+    rm -rf "$temp" && \
+    chown root:root ${BIN_DIR}/* && \
+    chmod 755 ${BIN_DIR}/*
 
 RUN adduser -u 1000 -s /bin/sh -D ${BIN_USER}
 USER ${BIN_USER}
